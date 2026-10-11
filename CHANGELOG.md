@@ -8,6 +8,22 @@
 
 KB histories with commits authored as `cartographer <cartographer@localhost>` may need a manual author rewrite before a forge with author push rules accepts the first push.
 
+## [0.24.0](https://github.com/BeppeTemp/cartographer/compare/v0.23.0...v0.24.0) (2026-10-11)
+
+
+### Features
+
+* Cartographer never starts a kb-doctor session by itself ([#704](https://github.com/BeppeTemp/cartographer/issues/704)) ([5f6e7cb](https://github.com/BeppeTemp/cartographer/commit/5f6e7cbc7fbf7a9ea23ecba2fc2acb9baf851e1f))
+* Cartographer never starts a kb-doctor session by itself. The scheduled headless doctor (`doctor schedule|unschedule|status|run`, D369, installed by default since D690) is removed together with its server declaration route (`/api/doctor-schedule`) and its client opt-out field. `connect`, `sync` (the path a Homebrew upgrade reaches) and `upgrade-repair` remove the job 0.22/0.23 installed, printing one line when there was one; `doctor run|schedule|…` now fail as unknown arguments instead of running every check. The nudge always asks the agent to propose a session and wait for the operator (the old `assisted` mode); `doctor_mode` is still validated but ignored, and `kb_status` reports it as `assisted` so a skill synced before 0.24 does not fall back to unattended; the default budget is 10 and the default interval 14 days. The kb-doctor skill (3.0) follows: a session starts only on the operator's request, runs assisted or, when handed over, delegated, and asks a missing fact in the session, recording a gap only when nobody can answer it yet. ([5f6e7cb](https://github.com/BeppeTemp/cartographer/commit/5f6e7cbc7fbf7a9ea23ecba2fc2acb9baf851e1f))
+* **dev:** live sessions with make dev, the live-dev skill and the live-implementer subagent ([#703](https://github.com/BeppeTemp/cartographer/issues/703)) ([cf211d0](https://github.com/BeppeTemp/cartographer/commit/cf211d0822a8ae3b4a1aedfcc95ccd9e66653e9b))
+* the background repair runs at every server start, after a pull that moved HEAD and on its interval, instead of waiting for an interval after the last logged run: an upgrade that adds a check no longer leaves its fixes queued for a day. ([5f6e7cb](https://github.com/BeppeTemp/cartographer/commit/5f6e7cbc7fbf7a9ea23ecba2fc2acb9baf851e1f))
+* **webui:** the Atlas Health panel shows what Cartographer found and, on a second tab, what it checks. *Issues*: the kinds of issue found and every occurrence; a page field (one square per page, clustered by Map, amber for a problem, blue for a suggestion, split on the diagonal for both; hovering a row lights its pages in that row's colour; a Map's name filters the page); then *Problems* and *Suggestions*, one row per kind with a weight bar, opened to *What it is*, *To fix* and one line per case whose pages unfold on click. The suggestions include the `kb_review` proposals, read through a new read-only `GET /api/ui/v1/kbs/{kb}/maintenance/review`. *What it checks*: how checking works in three steps, the result on this KB, the trend, and every rule by folded category with what it looks for. The rail marks Health with a dot instead of a findings count. ([5f6e7cb](https://github.com/BeppeTemp/cartographer/commit/5f6e7cbc7fbf7a9ea23ecba2fc2acb9baf851e1f))
+
+
+### Bug Fixes
+
+* **lint:** unknown_type is info outside maps that adopted types ([#722](https://github.com/BeppeTemp/cartographer/issues/722)) ([75ec4df](https://github.com/BeppeTemp/cartographer/commit/75ec4df64904fafb0153ab16229f205154a40ce2))
+
 ## [0.23.0](https://github.com/BeppeTemp/cartographer/compare/v0.22.2...v0.23.0) (2026-10-10)
 
 
