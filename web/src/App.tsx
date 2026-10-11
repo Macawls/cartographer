@@ -810,7 +810,7 @@ export function App() {
                 </div>
               ) : (
                 <GraphView
-                  vibe={eggs.has("vibe")}
+                  tako={eggs.has("tako")}
                   snapshot={snapshot}
                   layoutKey={snapshotKey}
                   loadBirths={activeKB ? () => fetchBirths(activeKB).then((r) => r.births) : undefined}
